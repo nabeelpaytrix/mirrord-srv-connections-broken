@@ -9,7 +9,7 @@ on:
 jobs:
   build-and-publish:
     name: Build and Publish
-    runs-on: ubunut-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout source code
