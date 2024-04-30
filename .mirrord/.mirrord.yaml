@@ -1,0 +1,19 @@
+# Full specification: https://mirrord.dev/docs/reference/configuration/
+target: pod/mirrord-srv-connections-broken/container/mirrord-srv-connections-broken
+accept_invalid_certificates: true
+feature:
+  network:
+    incoming:
+      mode: steal
+      # NOTE: SRV lookup fails when the http_filter is enabled
+#      http_filter:
+#        header_filter: "X-Forwarded-User: local"
+      port_mapping:
+        - - 8080
+          - 8080
+    outgoing:
+      tcp: true
+      udp: true
+  fs:
+    mode: read
+  env: true

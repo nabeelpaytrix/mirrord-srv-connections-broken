@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      maxIdleTimeSeconds: 30
+      maxSize: 100
+      minSize: 10
+      uri: ${MONGO_DB_PREFIX:mongodb}://${MONGO_DB_SERVICE_USER:user}:${MONGO_DB_SERVICE_PWD:password}@${MONGO_DB_HOST:localhost}/${MONGO_DB_NAME:db}?authSource=admin&ssl=${MONGO_DB_TLS_ENABLED}
+      ssl: ${MONGO_DB_TLS_ENABLED}

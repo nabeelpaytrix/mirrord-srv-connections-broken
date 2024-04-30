@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mirrord-srv-connections-broken
+  namespace: default
+  labels:
+    app: mirrord-srv-connections-broken
+spec:
+  containers:
+  - name: mirrord-srv-connections-broken
+    image: nabeelnavro/mirrord-srv-connections-broken:0.1.0
+    imagePullPolicy: Always
+    env:
+    - name: MONGO_DB_SERVICE_USER
+      value: my-user
+    - name: MONGO_DB_SERVICE_PWD
+      value: my-password
+    - name: MONGO_DB_HOST
+      value: my-mongodb-host.default.svc.cluster.local
+    - name: MONGO_DB_NAME
+      value: my-db
+    - name: MONGO_DB_PREFIX
+      value: mongodb+srv
+    - name: MONGO_DB_TLS_ENABLED
+      value: "false"
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /actuator/health
+        port: 8080
+        scheme: HTTP
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 1
+    ports:
+    - containerPort: 8080
+      name: http-svc
+      protocol: TCP
+    resources:
+      limits:
+        memory: 500Mi
+      requests:
+        cpu: 1
+        memory: 500Mi
+    startupProbe:
+      failureThreshold: 27
+      httpGet:
+        path: /actuator/health
+        port: 8080
+      initialDelaySeconds: 20
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 1
